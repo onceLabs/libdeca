@@ -18,7 +18,7 @@
 
 /** TWR_PROCESSING_DELAY: the processing delay may need to be increased for
  * different processor and IRQ handling speeds */
-#define TWR_PROCESSING_DELAY 600 /* us */
+#define TWR_PROCESSING_DELAY 1100 // default 600 /* us */
 #define TWR_FAILED_VALUE	 UINT16_MAX
 #define TWR_OK_VALUE		 (UINT16_MAX - 1)
 #define TWR_MSG_GROUP		 0x20
