@@ -5,6 +5,6 @@
 name: libdeca
 build:
   depends:
-    - decadriver
+  #  - decadriver
   cmake: ./zephyr/
   kconfig:
