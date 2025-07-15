@@ -72,6 +72,8 @@ dwt_callbacks_s dwmac_cbs = {
 };
 #endif
 
+static deca_tx_err_cb dwmac_tx_err_cb = NULL;
+
 bool dwmac_init(uint16_t mypanId, uint16_t myAddr, deca_rx_cb rx_cb,
 				deca_to_cb to_cb, deca_err_cb err_cb)
 {
@@ -144,6 +146,17 @@ bool dwmac_init(uint16_t mypanId, uint16_t myAddr, deca_rx_cb rx_cb,
 	dwtask_init();
 
 	return true;
+}
+
+int dwmac_set_tx_err_cb(deca_tx_err_cb cb)
+{
+	if (cb == NULL) {
+		LOG_ERR("TX error callback cannot be NULL");
+		return -EINVAL;
+	}
+
+	dwmac_tx_err_cb = cb;
+	return 0;
 }
 
 void dwmac_set_frame_filter(void)
@@ -479,6 +492,10 @@ bool dwmac_tx_raw(struct txbuf* tx)
 			/* decadriver disables TRX in the error case */
 			if (rx_reenable)
 				dwt_rxenable(DWT_START_RX_IMMEDIATE);
+			if (dwmac_tx_err_cb) {
+				dwmac_tx_err_cb(ret, systime, tx->txtime,
+								tx->txtime - systime);
+			}
 			return false;
 		}
 	}

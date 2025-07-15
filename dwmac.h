@@ -99,6 +99,7 @@ typedef void (*deca_to_cb)(uint32_t status);
 typedef void (*deca_err_cb)(uint32_t status);
 typedef void (*deca_rx_cb)(const struct rxbuf* buf);
 typedef void (*deca_tx_complete_cb)(void);
+typedef void (*deca_tx_err_cb)(uint32_t status, uint64_t systime, uint64_t txtime, int diff);
 
 struct txbuf {
 	uint8_t buf[DWMAC_RXBUF_LEN];
@@ -160,5 +161,9 @@ void dwmac_handle_rx_frame(const struct rxbuf* rx);
 void dwmac_handle_rx_timeout(uint32_t status);
 void dwmac_handle_tx_done(void);
 void dwmac_handle_error(uint32_t status);
+
+
+// onceLabs LLC additions
+int dwmac_set_tx_err_cb(deca_tx_err_cb cb);
 
 #endif
