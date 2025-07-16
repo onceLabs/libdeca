@@ -105,7 +105,7 @@ static bool twr_send_poll(uint64_t ancor)
 	dwmac_tx_expect_response(tx, twr_rx_delay);
 	dwmac_tx_set_preamble_timeout(tx, twr_pto);
 	dwmac_tx_set_timeout_handler(tx, twr_handle_timeout);
-
+	
 	bool res = dwmac_transmit(tx);
 	if (res) {
 		DBG_UWB("Sent Poll to " LADDR_FMT, LADDR_PAR(ancor));
