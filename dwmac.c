@@ -443,6 +443,7 @@ bool dwmac_tx_raw(struct txbuf* tx)
 	}
 
 	if (tx->len > 0) {
+		// LOG_INF("TX %d bytes (%p)", tx->len, tx);
 		ret = dwt_writetxdata(tx->len, tx->buf, 0);
 		if (ret != DWT_SUCCESS) {
 			return false;
@@ -450,6 +451,12 @@ bool dwmac_tx_raw(struct txbuf* tx)
 		// NOTE: this is not necessary to set if we use STS_MODE_ND
 		dwt_writetxfctrl(tx->len, 0, tx->ranging);
 	}
+
+	LOG_INF("TX %d bytes (%p) resp %d resp_multi %d ranging %d "
+			"rx_timeout %d txtime %" PRIu64 " rx_delay %d pto %d sleep_after_tx %d rx_reenable %d",
+			tx->len, tx, tx->resp, tx->resp_multi, tx->ranging,
+			tx->rx_timeout, tx->txtime, tx->rx_delay, tx->pto,
+			tx->sleep_after_tx, rx_reenable);
 
 	dwt_setrxtimeout(tx->rx_timeout);
 	dwt_setrxaftertxdelay(tx->rx_delay);

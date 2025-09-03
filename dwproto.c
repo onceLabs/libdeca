@@ -166,7 +166,7 @@ void dwprot_rx_handler(const struct rxbuf* rx)
 	}
 
 	uint16_t fc = *(uint16_t*)rx->buf;
-	// LOG_INF("RX len %d FC 0x%04X", rx->len, fc);
+	LOG_INF("RX len %d FC 0x%04X", rx->len, fc);
 
 	// Note: handle 1 byte FC for blink first!
 	if ((uint8_t)fc == MAC154_FC_BLINK_SHORT) {

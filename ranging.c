@@ -108,7 +108,7 @@ static bool twr_send_poll(uint64_t ancor)
 
 	bool res = dwmac_transmit(tx);
 	if (res) {
-		DBG_UWB("Sent Poll to " LADDR_FMT, LADDR_PAR(ancor));
+		LOG_INF("Sent Poll to " LADDR_FMT, LADDR_PAR(ancor));
 		expected_msg = single_sided ? TWR_MSG_SSRESP : TWR_MSG_RESP;
 	} else {
 		LOG_ERR("Failed to send Poll to " LADDR_FMT, LADDR_PAR(ancor));
@@ -137,7 +137,7 @@ static bool twr_send_response(uint64_t tag, uint64_t poll_rx_ts)
 
 	bool res = dwmac_transmit(tx);
 	if (res) {
-		DBG_UWB("Sent Response to " LADDR_FMT " after %dus", LADDR_PAR(tag),
+		LOG_INF("Sent Response to " LADDR_FMT " after %dus", LADDR_PAR(tag),
 				(int)DTU_TO_US(resp_tx_time - poll_rx_ts));
 		expected_msg = TWR_MSG_FINA;
 	} else {
@@ -222,7 +222,7 @@ static bool twr_send_final(uint64_t ancor, uint64_t resp_rx_ts)
 
 	bool res = dwmac_transmit(tx);
 	if (res) {
-		DBG_UWB("Sent Final to " LADDR_FMT " after %dus", LADDR_PAR(ancor),
+		LOG_INF("Sent Final to " LADDR_FMT " after %dus", LADDR_PAR(ancor),
 				(int)DTU_TO_US(final_tx_time - resp_rx_ts));
 		// LOG_DBG_TS("\tPoll TX TS:\t", poll_tx_ts);
 		// LOG_DBG_TS("\tResp RX TS:\t", resp_rx_ts);
