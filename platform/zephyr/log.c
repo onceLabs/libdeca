@@ -1,3 +1,3 @@
 #include <zephyr/logging/log.h>
 
-LOG_MODULE_REGISTER(deca, LOG_LEVEL_DBG);
+LOG_MODULE_REGISTER(deca, LOG_LEVEL_ERR);
